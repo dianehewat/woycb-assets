@@ -2,7 +2,7 @@
 
 ## Build with Gemini XPRIZE | Technical Repository
 
-**What Only You Can Bring™** is an AI-native, low-code implementation of **Human Potential Recognition™**.
+**What Only You Can Bring™ is a live AI-native implementation of Human Potential Recognition™, built with Google Gemini 2.5 Pro.**
 
 The working participant experience is orchestrated through Make.com, with **Google Gemini 2.5 Pro via the Gemini API** performing the core Human Potential Recognition™ reasoning.
 
@@ -29,7 +29,27 @@ The working participant experience is orchestrated through Make.com, with **Goog
 - `make-scenario/` — sanitised Make.com blueprint of the working workflow
 - `gemini/` — submission-safe documentation of the Human Potential Recognition™ reasoning approach
 - `workflow/` — technical architecture and data-flow documentation
+- `production-evidence/` — real-world system, participant and pilot validation evidence
 - Project logo assets
+
+## Real-World Production Evidence
+
+The `production-evidence/` folder provides a traceable evidence chain from live system operation through to real participant experience and pilot validation.
+
+It includes:
+
+- Live Make.com workflow execution
+- Gemini 2.5 Pro production configuration
+- Google Cloud evidence of Gemini API usage
+- Demonstration Human Potential Reflection™
+- Live participant story intake and feedback experiences
+- Automated reflection delivery
+- Permissioned real-user testimonials
+- Analysis of 12 real pilot feedback responses
+- Anonymised response-level pilot data
+
+**Evidence chain:**  
+Real participant story → Live automated workflow → Gemini 2.5 Pro reasoning → Human Potential Reflection™ → Automated delivery → Participant feedback → Pilot evidence
 
 ## Core AI Implementation
 
@@ -48,3 +68,5 @@ Gemini has autonomy over the reasoning required to create each reflection within
 ## Privacy
 
 The Make.com blueprint in this repository is a sanitised submission copy. Credentials, participant information and private resource identifiers are not included.
+
+All public production evidence has been reviewed to protect participant privacy and exclude credentials, API keys, private resource identifiers and other sensitive information.
