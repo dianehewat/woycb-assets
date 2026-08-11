@@ -1,0 +1,2608 @@
+{
+  "name": "GGXP WOYCB Participant Reflection - Stable V1.0 - 2026 08 04",
+  "flow": [
+    {
+      "id": 2,
+      "module": "tally:watchNewResponse",
+      "version": 1,
+      "parameters": {
+        "__IMTHOOK__": 0
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": -1171,
+          "y": -692
+        },
+        "restore": {
+          "parameters": {
+            "__IMTHOOK__": {
+              "data": {
+                "editable": "false"
+              },
+              "label": "GGXP WOYCB Participant Reflection - Stable V1.0 - Webhook"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTHOOK__",
+            "type": "hook:tally",
+            "label": "Webhook",
+            "required": true
+          }
+        ],
+        "interface": [
+          {
+            "name": "eventId",
+            "type": "text",
+            "label": "Event ID"
+          },
+          {
+            "name": "responseId",
+            "type": "text",
+            "label": "Response ID"
+          },
+          {
+            "name": "submissionId",
+            "type": "text",
+            "label": "Submission ID"
+          },
+          {
+            "name": "respondentId",
+            "type": "text",
+            "label": "Respondent ID"
+          },
+          {
+            "name": "formId",
+            "type": "text",
+            "label": "Form ID"
+          },
+          {
+            "name": "formName",
+            "type": "text",
+            "label": "Form Name"
+          },
+          {
+            "name": "createdAt",
+            "type": "date",
+            "label": "Created at"
+          },
+          {
+            "name": "submissionPdfUrl",
+            "type": "url",
+            "label": "Submission PDF URL"
+          },
+          {
+            "name": "submissionPreviewUrl",
+            "type": "url",
+            "label": "Submission Preview URL"
+          },
+          {
+            "name": "fields",
+            "spec": [
+              {
+                "name": "Access Code ",
+                "type": "text"
+              },
+              {
+                "name": "First Name",
+                "type": "text"
+              },
+              {
+                "name": "Last Name",
+                "type": "text"
+              },
+              {
+                "name": "Email",
+                "type": "email"
+              },
+              {
+                "name": "Share your story here",
+                "type": "text"
+              }
+            ],
+            "type": "collection",
+            "label": "Fields"
+          },
+          {
+            "name": "fieldsById",
+            "spec": [
+              {
+                "name": "question_RReDWQ",
+                "type": "text",
+                "label": "Access Code "
+              },
+              {
+                "name": "question_OLqXka",
+                "type": "text",
+                "label": "First Name"
+              },
+              {
+                "name": "question_VV7PDj",
+                "type": "text",
+                "label": "Last Name"
+              },
+              {
+                "name": "question_PlQ9k1",
+                "type": "email",
+                "label": "Email"
+              },
+              {
+                "name": "question_ooN29N",
+                "type": "text",
+                "label": "Share your story here"
+              }
+            ],
+            "type": "collection",
+            "label": "Fields by ID"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "mode": "fromAll",
+        "values": {
+          "Story": "{{2.fields.`Share your story here`}}",
+          "Status": "Received",
+          "Last_Name": "{{2.fields.`Last Name`}}",
+          "First_Name": "{{2.fields.`First Name`}}",
+          "Started_At": "{{formatDate(2.createdAt; \" YYYY-MM-DD HH:mm:ss \"; \" Australia/Melbourne\")}}",
+          "Access_Code": "{{2.fields.`Access Code `}}",
+          "Pilot_Cohort": "XPrize Pilot",
+          "Email_Address": "{{2.fields.Email}}",
+          "Submission_ID": "{{2.submissionId}}",
+          "Story_Submitted_At": "{{2.createdAt}}"
+        },
+        "sheetId": "WOYCB Pilot Responses",
+        "spreadsheetId": "<GOOGLE_SHEET_ID_REDACTED>",
+        "includesHeaders": true,
+        "insertDataOption": "INSERT_ROWS",
+        "useColumnHeaders": true,
+        "valueInputOption": "USER_ENTERED",
+        "insertUnformatted": false
+      },
+      "metadata": {
+        "designer": {
+          "x": -848,
+          "y": -704
+        },
+        "restore": {
+          "expect": {
+            "mode": {
+              "label": "Select from all"
+            },
+            "sheetId": {
+              "mode": "chose",
+              "label": "WOYCB Pilot Responses"
+            },
+            "spreadsheetId": {
+              "rpcSearch": {
+                "label": "WOYCB_Pilot_Responses_Operating_Dashboard_v2 2026 07 12",
+                "value": "<GOOGLE_SHEET_ID_REDACTED>"
+              }
+            },
+            "includesHeaders": {
+              "label": "Yes"
+            },
+            "insertDataOption": {
+              "mode": "chose",
+              "label": "Insert rows"
+            },
+            "useColumnHeaders": {
+              "label": "Yes"
+            },
+            "valueInputOption": {
+              "mode": "chose",
+              "label": "User entered"
+            },
+            "insertUnformatted": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "mode",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "select",
+                "fromAll",
+                "map"
+              ]
+            }
+          },
+          {
+            "name": "insertUnformatted",
+            "type": "boolean",
+            "label": "Unformatted",
+            "required": true
+          },
+          {
+            "name": "valueInputOption",
+            "type": "select",
+            "label": "Value input option",
+            "required": true,
+            "validate": {
+              "enum": [
+                "USER_ENTERED",
+                "RAW"
+              ]
+            }
+          },
+          {
+            "name": "insertDataOption",
+            "type": "select",
+            "label": "Insert data option",
+            "validate": {
+              "enum": [
+                "INSERT_ROWS",
+                "OVERWRITE"
+              ]
+            }
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "text",
+            "label": "Spreadsheet ID",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "select",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "includesHeaders",
+            "type": "select",
+            "label": "Table contains headers",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "useColumnHeaders",
+            "type": "select",
+            "label": "Use column headers as IDs of the columns",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "values",
+            "spec": [
+              {
+                "name": "Submission_ID",
+                "type": "text",
+                "label": "Submission_ID (A)"
+              },
+              {
+                "name": "Pilot_Cohort",
+                "type": "text",
+                "label": "Pilot_Cohort (B)"
+              },
+              {
+                "name": "Started_At",
+                "type": "text",
+                "label": "Started_At (C)"
+              },
+              {
+                "name": "Access_Code",
+                "type": "text",
+                "label": "Access_Code (D)"
+              },
+              {
+                "name": "Report_Date",
+                "type": "text",
+                "label": "Report_Date (E)"
+              },
+              {
+                "name": "Access_Code_Verified_At",
+                "type": "text",
+                "label": "Access_Code_Verified_At (F)"
+              },
+              {
+                "name": "First_Name",
+                "type": "text",
+                "label": "First_Name (G)"
+              },
+              {
+                "name": "Last_Name",
+                "type": "text",
+                "label": "Last_Name (H)"
+              },
+              {
+                "name": "Email_Address",
+                "type": "text",
+                "label": "Email_Address (I)"
+              },
+              {
+                "name": "Story",
+                "type": "text",
+                "label": "Story (J)"
+              },
+              {
+                "name": "Word_Count",
+                "type": "text",
+                "label": "Word_Count (K)"
+              },
+              {
+                "name": "Story_Submitted_At",
+                "type": "text",
+                "label": "Story_Submitted_At (L)"
+              },
+              {
+                "name": "Status",
+                "type": "text",
+                "label": "Status (M)"
+              },
+              {
+                "name": "Reflection_Created_At",
+                "type": "text",
+                "label": "Reflection_Created_At (N)"
+              },
+              {
+                "name": "Reflection_Viewed_At",
+                "type": "text",
+                "label": "Reflection_Viewed_At (O)"
+              },
+              {
+                "name": "Reflection_Email_Sent_At",
+                "type": "text",
+                "label": "Reflection_Email_Sent_At (P)"
+              },
+              {
+                "name": "Feedback_Submitted_At",
+                "type": "text",
+                "label": "Feedback_Submitted_At (Q)"
+              },
+              {
+                "name": "Error_Code",
+                "type": "text",
+                "label": "Error_Code (R)"
+              },
+              {
+                "name": "Error_Message",
+                "type": "text",
+                "label": "Error_Message (S)"
+              },
+              {
+                "name": "Internal_Error_Notes",
+                "type": "text",
+                "label": "Internal_Error_Notes (T)"
+              },
+              {
+                "name": "Gemini_Model",
+                "type": "text",
+                "label": "Gemini_Model (U)"
+              },
+              {
+                "name": "Recognition_Constitution_Version",
+                "type": "text",
+                "label": "Recognition_Constitution_Version (V)"
+              },
+              {
+                "name": "WOYCB_Reflection",
+                "type": "text",
+                "label": "WOYCB_Reflection (W)"
+              },
+              {
+                "name": "Reflections_from_Your_Story",
+                "type": "text",
+                "label": "Reflections_from_Your_Story (X)"
+              },
+              {
+                "name": "What_Stood_Out",
+                "type": "text",
+                "label": "What_Stood_Out (Y)"
+              },
+              {
+                "name": "Threads_Running_Through_Your_Story",
+                "type": "text",
+                "label": "Threads_Running_Through_Your_Story (Z)"
+              },
+              {
+                "name": "Patterns_that_Emerge",
+                "type": "text",
+                "label": "Patterns_that_Emerge (AA)"
+              },
+              {
+                "name": "Seeing_The_Whole",
+                "type": "text",
+                "label": "Seeing_The_Whole (AB)"
+              },
+              {
+                "name": "Recognising_Your_Human_Potential",
+                "type": "text",
+                "label": "Recognising_Your_Human_Potential (AC)"
+              },
+              {
+                "name": "Your_Human_Brilliance",
+                "type": "text",
+                "label": "Your_Human_Brilliance (AD)"
+              },
+              {
+                "name": "Questions_Worth_Holding",
+                "type": "text",
+                "label": "Questions_Worth_Holding (AE)"
+              },
+              {
+                "name": "Carrying_This_Forward",
+                "type": "text",
+                "label": "Carrying_This_Forward (AF)"
+              },
+              {
+                "name": "Feedback_Link",
+                "type": "text",
+                "label": "Feedback_Link (AG)"
+              },
+              {
+                "name": "Q1-Recognition_Score",
+                "type": "text",
+                "label": "Q1-Recognition_Score (AH)"
+              },
+              {
+                "name": "Q2_Articulation_Score",
+                "type": "text",
+                "label": "Q2_Articulation_Score (AI)"
+              },
+              {
+                "name": "Q3_Agency_Score",
+                "type": "text",
+                "label": "Q3_Agency_Score (AJ)"
+              },
+              {
+                "name": "Q4_Contribution_Score",
+                "type": "text",
+                "label": "Q4_Contribution_Score (AK)"
+              },
+              {
+                "name": "Q5_Trust_Score",
+                "type": "text",
+                "label": "Q5_Trust_Score (AL)"
+              },
+              {
+                "name": "Q6_Resonance_Comment",
+                "type": "text",
+                "label": "Q6_Resonance_Comment (AM)"
+              },
+              {
+                "name": "Q7_Calibration_Comment",
+                "type": "text",
+                "label": "Q7_Calibration_Comment (AN)"
+              },
+              {
+                "name": "Q8_Curiosity_Comment",
+                "type": "text",
+                "label": "Q8_Curiosity_Comment (AO)"
+              },
+              {
+                "name": "Q9_Improvement_Comment",
+                "type": "text",
+                "label": "Q9_Improvement_Comment (AP)"
+              },
+              {
+                "name": "Character_Count",
+                "type": "text",
+                "label": "Character_Count (AQ)"
+              },
+              {
+                "name": "Google_Doc_URL",
+                "type": "text",
+                "label": "Google_Doc_URL (AR)"
+              },
+              {
+                "name": "PDF_URL",
+                "type": "text",
+                "label": "PDF_URL (AS)"
+              },
+              {
+                "name": "Reflection_Date",
+                "type": "text",
+                "label": "Reflection_Date (AT)"
+              },
+              {
+                "name": "Reflection_File_Name",
+                "type": "text",
+                "label": "Reflection_File_Name (AU)"
+              }
+            ],
+            "type": "collection",
+            "label": "Values in columns",
+            "metadata": [
+              [
+                [
+                  "Submission_ID",
+                  "Pilot_Cohort",
+                  "Started_At",
+                  "Access_Code",
+                  "Report_Date",
+                  "Access_Code_Verified_At",
+                  "First_Name",
+                  "Last_Name",
+                  "Email_Address",
+                  "Story",
+                  "Word_Count",
+                  "Story_Submitted_At",
+                  "Status",
+                  "Reflection_Created_At",
+                  "Reflection_Viewed_At",
+                  "Reflection_Email_Sent_At",
+                  "Feedback_Submitted_At",
+                  "Error_Code",
+                  "Error_Message",
+                  "Internal_Error_Notes",
+                  "Gemini_Model",
+                  "Recognition_Constitution_Version",
+                  "WOYCB_Reflection",
+                  "Reflections_from_Your_Story",
+                  "What_Stood_Out",
+                  "Threads_Running_Through_Your_Story",
+                  "Patterns_that_Emerge",
+                  "Seeing_The_Whole",
+                  "Recognising_Your_Human_Potential",
+                  "Your_Human_Brilliance",
+                  "Questions_Worth_Holding",
+                  "Carrying_This_Forward",
+                  "Feedback_Link",
+                  "Q1-Recognition_Score",
+                  "Q2_Articulation_Score",
+                  "Q3_Agency_Score",
+                  "Q4_Contribution_Score",
+                  "Q5_Trust_Score",
+                  "Q6_Resonance_Comment",
+                  "Q7_Calibration_Comment",
+                  "Q8_Curiosity_Comment",
+                  "Q9_Improvement_Comment",
+                  "Character_Count",
+                  "Google_Doc_URL",
+                  "PDF_URL",
+                  "Reflection_Date",
+                  "Reflection_File_Name"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "module": "google-docs:getADocument",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "filter": "image",
+        "select": "dropdown",
+        "document": "/<GOOGLE_DRIVE_ROOT_ID_REDACTED>/<GOOGLE_DRIVE_FOLDER_ID_REDACTED>/<HPR_CONSTITUTION_DOC_ID_REDACTED>",
+        "destination": "drive",
+        "includeTabsContent": false
+      },
+      "metadata": {
+        "designer": {
+          "x": -1159,
+          "y": -442
+        },
+        "restore": {
+          "expect": {
+            "filter": {
+              "label": "Image"
+            },
+            "select": {
+              "label": "By Dropdown"
+            },
+            "document": {
+              "path": [
+                "XPrize 2026 07 04",
+                "PILOT Back Office - For MAKE",
+                "Human Potential Recognition Engine™ V3 2026 07 20"
+              ]
+            },
+            "destination": {
+              "label": "My Drive"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Get Content of a Document",
+            "required": true,
+            "validate": {
+              "enum": [
+                "map",
+                "dropdown"
+              ]
+            }
+          },
+          {
+            "name": "includeTabsContent",
+            "type": "boolean",
+            "label": "Include Tabs Content",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "type": "select",
+            "label": "Filter",
+            "required": true,
+            "validate": {
+              "enum": [
+                "image",
+                "drawing",
+                "chart"
+              ]
+            }
+          },
+          {
+            "name": "destination",
+            "type": "select",
+            "label": "Choose a Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "document",
+            "type": "file",
+            "label": "Document ID",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "module": "gemini-ai:createACompletionGeminiPro",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "model": "gemini-2.5-pro",
+        "contents": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "{{2.fieldsById.question_ooN29N}}",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "generationConfig": {
+          "imageConfig": {},
+          "thinkingConfig": {},
+          "responseModalities": [
+            "text"
+          ]
+        },
+        "system_instruction": {
+          "parts": [
+            {
+              "text": "{{5.text}}"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": -857,
+          "y": -449
+        },
+        "restore": {
+          "expect": {
+            "model": {
+              "mode": "chose",
+              "label": "Gemini 2.5 ProDiscontinuation date: October 16, 2026"
+            },
+            "contents": {
+              "mode": "chose",
+              "items": [
+                {
+                  "role": {
+                    "mode": "chose",
+                    "label": "User"
+                  },
+                  "parts": {
+                    "mode": "chose",
+                    "items": [
+                      {
+                        "type": {
+                          "mode": "chose",
+                          "label": "Text"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "serviceTier": {
+              "mode": "chose",
+              "label": "Empty"
+            },
+            "url_context": {
+              "mode": "chose"
+            },
+            "code_execution": {
+              "mode": "chose"
+            },
+            "safetySettings": {
+              "mode": "chose"
+            },
+            "generationConfig": {
+              "nested": {
+                "imageConfig": {
+                  "nested": {
+                    "imageSize": {
+                      "mode": "chose",
+                      "label": "Empty"
+                    }
+                  }
+                },
+                "stopSequences": {
+                  "mode": "chose"
+                },
+                "thinkingConfig": {
+                  "nested": {
+                    "thinking_level": {
+                      "mode": "chose",
+                      "label": "Empty"
+                    },
+                    "include_thoughts": {
+                      "mode": "chose"
+                    }
+                  }
+                },
+                "mediaResolution": {
+                  "mode": "chose",
+                  "label": "Empty"
+                },
+                "responseMimeType": {
+                  "mode": "chose",
+                  "label": "Empty"
+                },
+                "responseModalities": {
+                  "mode": "chose"
+                }
+              }
+            },
+            "system_instruction": {
+              "nested": {
+                "parts": {
+                  "mode": "chose",
+                  "items": [
+                    null
+                  ]
+                }
+              }
+            },
+            "google_maps_context": {
+              "mode": "chose"
+            },
+            "google_search_context": {
+              "mode": "chose"
+            },
+            "file_search_store_context": {
+              "mode": "chose"
+            },
+            "function_declarations_context": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "<GEMINI_CONNECTION_REDACTED>"
+              },
+              "label": "My Gemini AI connection"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:gemini-ai-q9zyjp",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "model",
+            "type": "select",
+            "label": "AI Model",
+            "required": true
+          },
+          {
+            "name": "contents",
+            "spec": [
+              {
+                "name": "role",
+                "type": "select",
+                "label": "Role",
+                "options": [
+                  {
+                    "label": "User",
+                    "value": "user"
+                  },
+                  {
+                    "label": "Model",
+                    "value": "model"
+                  }
+                ],
+                "required": true
+              },
+              {
+                "name": "parts",
+                "spec": [
+                  {
+                    "name": "type",
+                    "type": "select",
+                    "label": "Message Type",
+                    "options": [
+                      {
+                        "label": "Text",
+                        "value": "text",
+                        "nested": [
+                          {
+                            "name": "text",
+                            "type": "text",
+                            "label": "Text",
+                            "required": true
+                          }
+                        ]
+                      },
+                      {
+                        "label": "File",
+                        "value": "file",
+                        "nested": [
+                          {
+                            "name": "file_data",
+                            "spec": [
+                              {
+                                "name": "mime_type",
+                                "type": "text",
+                                "label": "Mime Type",
+                                "required": true
+                              },
+                              {
+                                "help": "You can use public or signed URLs as input by using the URLs.",
+                                "name": "file_uri",
+                                "type": "text",
+                                "label": "File URI",
+                                "required": true
+                              }
+                            ],
+                            "type": "collection",
+                            "label": "File Data",
+                            "required": true
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Function Call",
+                        "value": "functionCall",
+                        "nested": [
+                          {
+                            "name": "functionCall",
+                            "spec": [
+                              {
+                                "help": "The name of the function to call.",
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true,
+                                "validate": {
+                                  "max": 64
+                                }
+                              },
+                              {
+                                "help": "The function parameters and values in JSON object format.",
+                                "name": "args",
+                                "type": "json",
+                                "label": "Arguments"
+                              },
+                              {
+                                "help": "The unique ID of the function call.",
+                                "name": "id",
+                                "type": "text",
+                                "label": "Function Call ID"
+                              }
+                            ],
+                            "type": "collection",
+                            "label": "Function Call"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Function Response",
+                        "value": "functionResponse",
+                        "nested": [
+                          {
+                            "name": "functionResponse",
+                            "spec": [
+                              {
+                                "help": "The name of the function to call.",
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true,
+                                "validate": {
+                                  "max": 64
+                                }
+                              },
+                              {
+                                "help": "The function response in JSON object format.",
+                                "name": "response",
+                                "type": "json",
+                                "label": "Response",
+                                "required": true
+                              }
+                            ],
+                            "type": "collection",
+                            "label": "Function Response"
+                          }
+                        ]
+                      }
+                    ],
+                    "required": true
+                  },
+                  {
+                    "name": "thoughtSignature",
+                    "type": "text",
+                    "label": "Thought Signature"
+                  }
+                ],
+                "type": "array",
+                "label": "Parts",
+                "required": true
+              }
+            ],
+            "type": "array",
+            "label": "Messages",
+            "required": true
+          },
+          {
+            "name": "system_instruction",
+            "spec": [
+              {
+                "name": "parts",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "text",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Prompt"
+                },
+                "type": "array",
+                "label": "Prompts"
+              }
+            ],
+            "type": "collection",
+            "label": "System Instructions"
+          },
+          {
+            "name": "safetySettings",
+            "spec": [
+              {
+                "name": "category",
+                "type": "select",
+                "label": "Category",
+                "options": [
+                  {
+                    "label": "Harassment content",
+                    "value": "HARM_CATEGORY_HARASSMENT"
+                  },
+                  {
+                    "label": "Hate speech and content",
+                    "value": "HARM_CATEGORY_HATE_SPEECH"
+                  },
+                  {
+                    "label": "Sexually explicit content.",
+                    "value": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+                  },
+                  {
+                    "label": "Dangerous content:",
+                    "value": "HARM_CATEGORY_DANGEROUS_CONTENT"
+                  }
+                ]
+              },
+              {
+                "name": "threshold",
+                "type": "select",
+                "label": "Threshold",
+                "options": [
+                  {
+                    "label": "Block low and above.",
+                    "value": "BLOCK_LOW_AND_ABOVE"
+                  },
+                  {
+                    "label": "Block medium and above.",
+                    "value": "BLOCK_MEDIUM_AND_ABOVE"
+                  },
+                  {
+                    "label": "Block only high.",
+                    "value": "BLOCK_ONLY_HIGH"
+                  },
+                  {
+                    "label": "Block none.",
+                    "value": "BLOCK_NONE"
+                  }
+                ]
+              }
+            ],
+            "type": "array",
+            "label": "Safety Settings"
+          },
+          {
+            "name": "generationConfig",
+            "spec": [
+              {
+                "name": "stopSequences",
+                "spec": {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Stop Sequence"
+                },
+                "type": "array",
+                "label": "Stop Sequences"
+              },
+              {
+                "name": "responseModalities",
+                "type": "select",
+                "label": "Response Modalities",
+                "multiple": true,
+                "validate": {
+                  "enum": [
+                    "text",
+                    "image"
+                  ]
+                }
+              },
+              {
+                "name": "maxOutputTokens",
+                "type": "number",
+                "label": "Max Output Tokens"
+              },
+              {
+                "name": "temperature",
+                "type": "number",
+                "label": "Temperature",
+                "validate": {
+                  "max": 1,
+                  "min": 0
+                }
+              },
+              {
+                "name": "topP",
+                "type": "number",
+                "label": "Top P",
+                "validate": {
+                  "max": 1,
+                  "min": 0
+                }
+              },
+              {
+                "name": "topK",
+                "type": "number",
+                "label": "Top K"
+              },
+              {
+                "name": "thinkingConfig",
+                "spec": [
+                  {
+                    "name": "thinkingBudget",
+                    "type": "number",
+                    "label": "Thinking Budget"
+                  },
+                  {
+                    "name": "include_thoughts",
+                    "type": "boolean",
+                    "label": "Include Thoughts"
+                  },
+                  {
+                    "name": "thinking_level",
+                    "type": "select",
+                    "label": "Thinking Level",
+                    "validate": {
+                      "enum": [
+                        "low",
+                        "high"
+                      ]
+                    }
+                  }
+                ],
+                "type": "collection",
+                "label": "Thinking Config"
+              },
+              {
+                "name": "mediaResolution",
+                "type": "select",
+                "label": "Media Resolution",
+                "validate": {
+                  "enum": [
+                    "media_resolution_low",
+                    "media_resolution_medium",
+                    "media_resolution_high"
+                  ]
+                }
+              },
+              {
+                "name": "imageConfig",
+                "spec": [
+                  {
+                    "name": "imageSize",
+                    "type": "select",
+                    "label": "Image Size",
+                    "validate": {
+                      "enum": [
+                        "1K",
+                        "2K",
+                        "4K"
+                      ]
+                    }
+                  }
+                ],
+                "type": "collection",
+                "label": "Image Configuration"
+              },
+              {
+                "name": "responseMimeType",
+                "type": "select",
+                "label": "Response Format"
+              }
+            ],
+            "type": "collection",
+            "label": "Generation configurations"
+          },
+          {
+            "name": "tools",
+            "type": "any",
+            "label": "Tools"
+          },
+          {
+            "name": "tool_config",
+            "type": "any",
+            "label": "Tool Config"
+          },
+          {
+            "name": "function_declarations_context",
+            "type": "boolean",
+            "label": "Function Declarations Grounding"
+          },
+          {
+            "name": "url_context",
+            "type": "boolean",
+            "label": "URL Context"
+          },
+          {
+            "name": "google_search_context",
+            "type": "boolean",
+            "label": "Google Search Grounding"
+          },
+          {
+            "name": "code_execution",
+            "type": "boolean",
+            "label": "Code Execution"
+          },
+          {
+            "name": "google_maps_context",
+            "type": "boolean",
+            "label": "Google Maps Grounding"
+          },
+          {
+            "name": "file_search_store_context",
+            "type": "boolean",
+            "label": "File Search Store Context"
+          },
+          {
+            "name": "serviceTier",
+            "type": "select",
+            "label": "Inference Service Tier"
+          }
+        ],
+        "advanced": true
+      }
+    },
+    {
+      "id": 13,
+      "module": "json:ParseJSON",
+      "version": 1,
+      "parameters": {
+        "type": 604350
+      },
+      "filter": null,
+      "mapper": {
+        "json": "{{replace(6.result; \"/(^```json|```)/g\"; \"\")}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": -1149,
+          "y": -174
+        },
+        "restore": {
+          "parameters": {
+            "type": {
+              "label": "Human Potential Recognition V2"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "type": "udt",
+            "label": "Data structure"
+          }
+        ],
+        "expect": [
+          {
+            "name": "json",
+            "type": "text",
+            "label": "JSON string",
+            "required": true
+          }
+        ],
+        "interface": [
+          {
+            "help": "",
+            "name": "Reflections_from_Your_Story",
+            "type": "text",
+            "label": "Reflections from your story",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "What_Stood_Out",
+            "type": "text",
+            "label": "What stood out",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Threads_Running_Through_Your_Story",
+            "type": "text",
+            "label": null,
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Patterns_That_Emerge",
+            "type": "text",
+            "label": "Patterns that emerge",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Seeing_The_Whole",
+            "type": "text",
+            "label": "Seeing the whole",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Recognising_Your_Human_Potential",
+            "type": "text",
+            "label": null,
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Your_Human_Brilliance",
+            "type": "text",
+            "label": "Your human brilliance",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Questions_Worth_Holding",
+            "type": "text",
+            "label": "Questions worth holding",
+            "default": null,
+            "required": false,
+            "multiline": false
+          },
+          {
+            "help": "",
+            "name": "Carrying_This_Forward",
+            "type": "text",
+            "label": "Carrying this forward",
+            "default": null,
+            "required": false,
+            "multiline": false
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "module": "google-sheets:updateRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "from": "drive",
+        "mode": "select",
+        "values": {
+          "Story": "{{2.fields.`Share your story here`}}",
+          "Status": "Reflection Created",
+          "Last_Name": "{{2.fields.`Last Name`}}",
+          "First_Name": "{{2.fields.`First Name`}}",
+          "Started_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Report_Date": "{{toString(formatDate(now; \"D MMMM YYYY\"; \"Australia/Melbourne\"))}}",
+          "Gemini_Model": "{{6.modelVersion}}",
+          "Email_Address": "{{2.fields.Email}}",
+          "submission_id": "{{2.submissionId}}",
+          "What_Stood_Out": "{{13.What_Stood_Out}}",
+          "Reflection_Date": "{{formatDate(now; \"D MMMM YYYY\"; \"Australia/Melbourne\")}}",
+          "Seeing_The_Whole": "{{13.Seeing_The_Whole}}",
+          "WOYCB_Reflection": "{{6.result}}",
+          "Story_Submitted_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Submission_ID_Story": "{{2.submissionId}}",
+          "Patterns_that_Emerge": "{{13.Patterns_That_Emerge}}",
+          "Reflection_File_Name": "{{2.fields.`First Name`}}{{2.fields.`Last Name`}} - WOYCB Reflection - {{formatDate(now; \"d MMM YYYY\"; \"Australia/Melbourne\")}}",
+          "Reflection_Viewed_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Carrying_This_Forward": "{{13.Carrying_This_Forward}}",
+          "Feedback_Submitted_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Reflection_Created_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Tally_Story_Form_Link": "https://tally.so/r/{{2.formId}}",
+          "Your_Human_Brilliance": "{{13.Your_Human_Brilliance}}",
+          "Questions_Worth_Holding": "{{13.Questions_Worth_Holding}}",
+          "Reflection_Email_Sent_At": "{{toString(formatDate(now; \"D MMMM YYYY HH:mm:ss\"; \"Australia/Melbourne\"))}}",
+          "Reflections_from_Your_Story": "{{13.Reflections_from_Your_Story}}",
+          "Recognising_Your_Human_Potential": "{{13.Recognising_Your_Human_Potential}}",
+          "Recognition_Constitution_Version": "{{5.title}}",
+          "Threads_Running_Through_Your_Story": "{{13.Threads_Running_Through_Your_Story}}"
+        },
+        "sheetId": "WOYCB Pilot Responses",
+        "rowNumber": "{{4.rowNumber}}",
+        "spreadsheetId": "/<GOOGLE_DRIVE_ROOT_ID_REDACTED>/<GOOGLE_DRIVE_FOLDER_ID_REDACTED>/<GOOGLE_SHEET_ID_REDACTED>",
+        "includesHeaders": true,
+        "useColumnHeaders": true,
+        "valueInputOption": "USER_ENTERED"
+      },
+      "metadata": {
+        "designer": {
+          "x": -860,
+          "y": -176
+        },
+        "restore": {
+          "expect": {
+            "from": {
+              "label": "My Drive"
+            },
+            "mode": {
+              "label": "Search by path"
+            },
+            "sheetId": {
+              "label": "WOYCB Pilot Responses"
+            },
+            "spreadsheetId": {
+              "path": [
+                "XPrize 2026 07 04",
+                "PILOT Back Office - For MAKE",
+                "WOYCB_Pilot_Responses_Operating_Dashboard_v2 2026 07 12"
+              ]
+            },
+            "includesHeaders": {
+              "label": "Yes"
+            },
+            "useColumnHeaders": {
+              "label": "Yes"
+            },
+            "valueInputOption": {
+              "mode": "chose",
+              "label": "User entered"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "mode",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "select",
+                "fromAll",
+                "map"
+              ]
+            }
+          },
+          {
+            "name": "valueInputOption",
+            "type": "select",
+            "label": "Value input option",
+            "required": true,
+            "validate": {
+              "enum": [
+                "USER_ENTERED",
+                "RAW"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "file",
+            "label": "Spreadsheet Name",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "select",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "rowNumber",
+            "type": "uinteger",
+            "label": "Row number",
+            "required": true
+          },
+          {
+            "name": "includesHeaders",
+            "type": "select",
+            "label": "Table contains headers",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "useColumnHeaders",
+            "type": "select",
+            "label": "Use column headers as IDs of the columns",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "values",
+            "spec": [
+              {
+                "name": "submission_id",
+                "type": "text",
+                "label": "submission_id (A)"
+              },
+              {
+                "name": "Submission_ID_Story",
+                "type": "text",
+                "label": "Submission_ID_Story (B)"
+              },
+              {
+                "name": "Submission_ID_Feedback",
+                "type": "text",
+                "label": "Submission_ID_Feedback (C)"
+              },
+              {
+                "name": "Tally_Story_Form_Link",
+                "type": "text",
+                "label": "Tally_Story_Form_Link (D)"
+              },
+              {
+                "name": "Tally_Feedback_Form_Link",
+                "type": "text",
+                "label": "Tally_Feedback_Form_Link (E)"
+              },
+              {
+                "name": "Pilot_Cohort",
+                "type": "text",
+                "label": "Pilot_Cohort (F)"
+              },
+              {
+                "name": "Started_At",
+                "type": "text",
+                "label": "Started_At (G)"
+              },
+              {
+                "name": "Access_Code",
+                "type": "text",
+                "label": "Access_Code (H)"
+              },
+              {
+                "name": "Report_Date",
+                "type": "text",
+                "label": "Report_Date (I)"
+              },
+              {
+                "name": "Access_Code_Verified_At",
+                "type": "text",
+                "label": "Access_Code_Verified_At (J)"
+              },
+              {
+                "name": "First_Name",
+                "type": "text",
+                "label": "First_Name (K)"
+              },
+              {
+                "name": "Last_Name",
+                "type": "text",
+                "label": "Last_Name (L)"
+              },
+              {
+                "name": "Email_Address",
+                "type": "text",
+                "label": "Email_Address (M)"
+              },
+              {
+                "name": "Story",
+                "type": "text",
+                "label": "Story (N)"
+              },
+              {
+                "name": "Word_Count",
+                "type": "text",
+                "label": "Word_Count (O)"
+              },
+              {
+                "name": "Story_Submitted_At",
+                "type": "text",
+                "label": "Story_Submitted_At (P)"
+              },
+              {
+                "name": "Status",
+                "type": "text",
+                "label": "Status (Q)"
+              },
+              {
+                "name": "Reflection_Created_At",
+                "type": "text",
+                "label": "Reflection_Created_At (R)"
+              },
+              {
+                "name": "Reflection_Viewed_At",
+                "type": "text",
+                "label": "Reflection_Viewed_At (S)"
+              },
+              {
+                "name": "Reflection_Email_Sent_At",
+                "type": "text",
+                "label": "Reflection_Email_Sent_At (T)"
+              },
+              {
+                "name": "Feedback_Submitted_At",
+                "type": "text",
+                "label": "Feedback_Submitted_At (U)"
+              },
+              {
+                "name": "Error_Code",
+                "type": "text",
+                "label": "Error_Code (V)"
+              },
+              {
+                "name": "Error_Message",
+                "type": "text",
+                "label": "Error_Message (W)"
+              },
+              {
+                "name": "Internal_Error_Notes",
+                "type": "text",
+                "label": "Internal_Error_Notes (X)"
+              },
+              {
+                "name": "Gemini_Model",
+                "type": "text",
+                "label": "Gemini_Model (Y)"
+              },
+              {
+                "name": "Recognition_Constitution_Version",
+                "type": "text",
+                "label": "Recognition_Constitution_Version (Z)"
+              },
+              {
+                "name": "WOYCB_Reflection",
+                "type": "text",
+                "label": "WOYCB_Reflection (AA)"
+              },
+              {
+                "name": "Reflections_from_Your_Story",
+                "type": "text",
+                "label": "Reflections_from_Your_Story (AB)"
+              },
+              {
+                "name": "What_Stood_Out",
+                "type": "text",
+                "label": "What_Stood_Out (AC)"
+              },
+              {
+                "name": "Threads_Running_Through_Your_Story",
+                "type": "text",
+                "label": "Threads_Running_Through_Your_Story (AD)"
+              },
+              {
+                "name": "Patterns_that_Emerge",
+                "type": "text",
+                "label": "Patterns_that_Emerge (AE)"
+              },
+              {
+                "name": "Seeing_The_Whole",
+                "type": "text",
+                "label": "Seeing_The_Whole (AF)"
+              },
+              {
+                "name": "Recognising_Your_Human_Potential",
+                "type": "text",
+                "label": "Recognising_Your_Human_Potential (AG)"
+              },
+              {
+                "name": "Your_Human_Brilliance",
+                "type": "text",
+                "label": "Your_Human_Brilliance (AH)"
+              },
+              {
+                "name": "Questions_Worth_Holding",
+                "type": "text",
+                "label": "Questions_Worth_Holding (AI)"
+              },
+              {
+                "name": "Carrying_This_Forward",
+                "type": "text",
+                "label": "Carrying_This_Forward (AJ)"
+              },
+              {
+                "name": "Feedback_Count",
+                "type": "text",
+                "label": "Feedback_Count (AK)"
+              },
+              {
+                "name": "Feedback_Version",
+                "type": "text",
+                "label": "Feedback_Version (AL)"
+              },
+              {
+                "name": "Q1-Recognition_Of_ Self",
+                "type": "text",
+                "label": "Q1-Recognition_Of_ Self (AM)"
+              },
+              {
+                "name": "Q2_Recognition_Through_Expression",
+                "type": "text",
+                "label": "Q2_Recognition_Through_Expression (AN)"
+              },
+              {
+                "name": "Q3_Recognition_Of_Agency",
+                "type": "text",
+                "label": "Q3_Recognition_Of_Agency (AO)"
+              },
+              {
+                "name": "Q4_Recognition_Of_Value",
+                "type": "text",
+                "label": "Q4_Recognition_Of_Value (AP)"
+              },
+              {
+                "name": "Q5_Recognition_Of_Authenticity",
+                "type": "text",
+                "label": "Q5_Recognition_Of_Authenticity (AQ)"
+              },
+              {
+                "name": "Q6_Resonance_Comment",
+                "type": "text",
+                "label": "Q6_Resonance_Comment (AR)"
+              },
+              {
+                "name": "Q7_Calibration_Comment",
+                "type": "text",
+                "label": "Q7_Calibration_Comment (AS)"
+              },
+              {
+                "name": "Q8_Curiosity_Comment",
+                "type": "text",
+                "label": "Q8_Curiosity_Comment (AT)"
+              },
+              {
+                "name": "Q9_Activation_Comment",
+                "type": "text",
+                "label": "Q9_Activation_Comment (AU)"
+              },
+              {
+                "name": "Q10_Recommend",
+                "type": "text",
+                "label": "Q10_Recommend (AV)"
+              },
+              {
+                "name": "Character_Count",
+                "type": "text",
+                "label": "Character_Count (AW)"
+              },
+              {
+                "name": "Google_Doc_URL",
+                "type": "text",
+                "label": "Google_Doc_URL (AX)"
+              },
+              {
+                "name": "PDF_URL",
+                "type": "text",
+                "label": "PDF_URL (AY)"
+              },
+              {
+                "name": "Reflection_Date",
+                "type": "text",
+                "label": "Reflection_Date (AZ)"
+              },
+              {
+                "name": "Reflection_File_Name",
+                "type": "text",
+                "label": "Reflection_File_Name (BA)"
+              }
+            ],
+            "type": "collection",
+            "label": "Values in columns",
+            "metadata": [
+              [
+                [
+                  "submission_id",
+                  "Submission_ID_Story",
+                  "Submission_ID_Feedback",
+                  "Tally_Story_Form_Link",
+                  "Tally_Feedback_Form_Link",
+                  "Pilot_Cohort",
+                  "Started_At",
+                  "Access_Code",
+                  "Report_Date",
+                  "Access_Code_Verified_At",
+                  "First_Name",
+                  "Last_Name",
+                  "Email_Address",
+                  "Story",
+                  "Word_Count",
+                  "Story_Submitted_At",
+                  "Status",
+                  "Reflection_Created_At",
+                  "Reflection_Viewed_At",
+                  "Reflection_Email_Sent_At",
+                  "Feedback_Submitted_At",
+                  "Error_Code",
+                  "Error_Message",
+                  "Internal_Error_Notes",
+                  "Gemini_Model",
+                  "Recognition_Constitution_Version",
+                  "WOYCB_Reflection",
+                  "Reflections_from_Your_Story",
+                  "What_Stood_Out",
+                  "Threads_Running_Through_Your_Story",
+                  "Patterns_that_Emerge",
+                  "Seeing_The_Whole",
+                  "Recognising_Your_Human_Potential",
+                  "Your_Human_Brilliance",
+                  "Questions_Worth_Holding",
+                  "Carrying_This_Forward",
+                  "Feedback_Count",
+                  "Feedback_Version",
+                  "Q1-Recognition_Of_ Self",
+                  "Q2_Recognition_Through_Expression",
+                  "Q3_Recognition_Of_Agency",
+                  "Q4_Recognition_Of_Value",
+                  "Q5_Recognition_Of_Authenticity",
+                  "Q6_Resonance_Comment",
+                  "Q7_Calibration_Comment",
+                  "Q8_Curiosity_Comment",
+                  "Q9_Activation_Comment",
+                  "Q10_Recommend",
+                  "Character_Count",
+                  "Google_Doc_URL",
+                  "PDF_URL",
+                  "Reflection_Date",
+                  "Reflection_File_Name"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "module": "google-docs:createADocumentFromTemplate",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "from": "drive",
+        "name": "{{2.fields.`First Name`}} {{2.fields.`Last Name`}} - What Only You Can Bring™ Reflection - {{formatDate(now; \"YYYY-MM-DD\"; \"Australia/Melbourne\")}}",
+        "image": {},
+        "select": "dropdown",
+        "document": "/<GOOGLE_DRIVE_ROOT_ID_REDACTED>/<OUTPUT_FOLDER_ID_REDACTED>/<REFLECTION_TEMPLATE_DOC_ID_REDACTED>",
+        "folderId": "/<GOOGLE_DRIVE_ROOT_ID_REDACTED>/<OUTPUT_FOLDER_ID_REDACTED>",
+        "requests": {
+          "Story": "{{2.fields.`Share your story here`}}",
+          "Last_Name": "{{2.fields.`Last Name`}}",
+          "Created_at": "{{formatDate(2.createdAt; \"D MMM YYYY\"; \"Australia/Melbourne\")}}",
+          "First_Name": "{{2.fields.`First Name`}}",
+          "Report_Date": "{{formatDate(2.createdAt; \"D MMM YYYY\"; \"Australia/Melbourne\")}}",
+          "What_Stood_Out": "{{13.What_Stood_Out}}",
+          "Seeing_The_Whole": "{{13.Seeing_The_Whole}}",
+          "Patterns_that_Emerge": "{{13.Patterns_That_Emerge}}",
+          "Carrying_This_Forward": "{{13.Carrying_This_Forward}}",
+          "Your_Human_Brilliance": "{{13.Your_Human_Brilliance}}",
+          "Questions_Worth_Holding": "{{13.Questions_Worth_Holding}}",
+          "Reflections_from_Your_Story": "{{13.Reflections_from_Your_Story}}",
+          "Recognising_Your_Human_Potential": "{{13.Recognising_Your_Human_Potential}}",
+          "Threads_Running_Through_Your_Story": "{{13.Threads_Running_Through_Your_Story}}"
+        },
+        "destination": "drive"
+      },
+      "metadata": {
+        "designer": {
+          "x": -1164,
+          "y": 96
+        },
+        "restore": {
+          "expect": {
+            "from": {
+              "label": "My Drive"
+            },
+            "select": {
+              "label": "By Dropdown"
+            },
+            "document": {
+              "path": [
+                "XPrize 2026 07 04",
+                "WOYCB Pilot Reflections (Reports)",
+                "Firstname Lastname - What Only You Can Bring™ Reflection Report Template V2 - 2026 07 18"
+              ]
+            },
+            "folderId": {
+              "mode": "chose",
+              "path": [
+                "XPrize 2026 07 04",
+                "WOYCB Pilot Reflections (Reports)"
+              ]
+            },
+            "destination": {
+              "label": "My Drive"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Create a Document from a Template",
+            "required": true,
+            "validate": {
+              "enum": [
+                "map",
+                "dropdown"
+              ]
+            }
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "label": "Title",
+            "required": true
+          },
+          {
+            "name": "destination",
+            "type": "select",
+            "label": "New Drive Location",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "Choose a Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "document",
+            "type": "file",
+            "label": "Document ID",
+            "required": true
+          },
+          {
+            "name": "requests",
+            "spec": [
+              {
+                "name": "First_Name",
+                "type": "any"
+              },
+              {
+                "name": "Last_Name",
+                "type": "any"
+              },
+              {
+                "name": "Created_at",
+                "type": "any"
+              },
+              {
+                "name": "Story",
+                "type": "any"
+              },
+              {
+                "name": "Reflections_from_Your_Story",
+                "type": "any"
+              },
+              {
+                "name": "What_Stood_Out",
+                "type": "any"
+              },
+              {
+                "name": "Threads_Running_Through_Your_Story",
+                "type": "any"
+              },
+              {
+                "name": "Patterns_that_Emerge",
+                "type": "any"
+              },
+              {
+                "name": "Seeing_The_Whole",
+                "type": "any"
+              },
+              {
+                "name": "Your_Human_Brilliance",
+                "type": "any"
+              },
+              {
+                "name": "Questions_Worth_Holding",
+                "type": "any"
+              },
+              {
+                "name": "Recognising_Your_Human_Potential",
+                "type": "any"
+              },
+              {
+                "name": "Carrying_This_Forward",
+                "type": "any"
+              },
+              {
+                "name": "Report_Date",
+                "type": "any"
+              }
+            ],
+            "type": "collection",
+            "label": "Values"
+          },
+          {
+            "name": "image",
+            "spec": [
+              {
+                "name": "kix.7sh7rbhi71lc-t.0",
+                "type": "url",
+                "label": "Tab (Tab 1) - Body: Image No. 1",
+                "metadata": {
+                  "tabId": "t.0"
+                }
+              }
+            ],
+            "type": "collection",
+            "label": "Image URLs"
+          },
+          {
+            "name": "folderId",
+            "type": "folder",
+            "label": "New Document's Location",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "module": "google-drive:getAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "file": "/{{9.id}}",
+        "select": "value",
+        "destination": "drive",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/pdf",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "metadata": {
+        "designer": {
+          "x": -855,
+          "y": 92
+        },
+        "restore": {
+          "expect": {
+            "file": {
+              "path": [
+                "{{9.id}}"
+              ]
+            },
+            "select": {
+              "label": "Select from the list"
+            },
+            "destination": {
+              "label": "My Drive"
+            },
+            "formatDrawings": {
+              "label": "JPEG"
+            },
+            "formatDocuments": {
+              "label": "PDF"
+            },
+            "formatSpreadsheets": {
+              "label": "MS Excel"
+            },
+            "formatPresentations": {
+              "label": "MS PowerPoint"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google-drive"
+              },
+              "label": "My Google Drive connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-restricted,google-drive",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Enter a File ID",
+            "required": true,
+            "validate": {
+              "enum": [
+                "map",
+                "value"
+              ]
+            }
+          },
+          {
+            "name": "formatDocuments",
+            "type": "select",
+            "label": "Convert Google Documents Files to Format",
+            "required": true,
+            "validate": {
+              "enum": [
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/pdf",
+                "application/vnd.oasis.opendocument.text",
+                "text/html",
+                "text/plain",
+                "application/rtf",
+                "text/markdown"
+              ]
+            }
+          },
+          {
+            "name": "formatSpreadsheets",
+            "type": "select",
+            "label": "Convert Google Spreadsheets Files to Format",
+            "required": true,
+            "validate": {
+              "enum": [
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "application/x-vnd.oasis.opendocument.spreadsheet",
+                "application/pdf",
+                "text/csv"
+              ]
+            }
+          },
+          {
+            "name": "formatPresentations",
+            "type": "select",
+            "label": "Convert Google Slides Files to Format",
+            "required": true,
+            "validate": {
+              "enum": [
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                "application/pdf"
+              ]
+            }
+          },
+          {
+            "name": "formatDrawings",
+            "type": "select",
+            "label": "Convert Google Drawings Files to Format",
+            "required": true,
+            "validate": {
+              "enum": [
+                "image/jpeg",
+                "image/png",
+                "image/svg+xml",
+                "application/pdf"
+              ]
+            }
+          },
+          {
+            "name": "destination",
+            "type": "select",
+            "label": "Choose a Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "file",
+            "type": "file",
+            "label": "File ID",
+            "required": true
+          }
+        ],
+        "advanced": true
+      }
+    },
+    {
+      "id": 22,
+      "module": "google-drive:uploadAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "data": "{{21.data}}",
+        "select": "value",
+        "convert": false,
+        "filename": "{{21.name}}",
+        "folderId": "/<GOOGLE_DRIVE_ROOT_ID_REDACTED>/<OUTPUT_FOLDER_ID_REDACTED>",
+        "destination": "drive"
+      },
+      "metadata": {
+        "designer": {
+          "x": -1159,
+          "y": 385
+        },
+        "restore": {
+          "expect": {
+            "select": {
+              "label": "Select from the list"
+            },
+            "folderId": {
+              "mode": "chose",
+              "path": [
+                "XPrize 2026 07 04",
+                "WOYCB Pilot Reflections (Reports)"
+              ]
+            },
+            "destination": {
+              "label": "My Drive"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google-drive"
+              },
+              "label": "My Google Drive connection (<GOOGLE_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-restricted,google-drive",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Enter a Folder ID",
+            "required": true,
+            "validate": {
+              "enum": [
+                "map",
+                "value"
+              ]
+            }
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "label": "New File Name"
+          },
+          {
+            "name": "filename",
+            "type": "text",
+            "label": "File Name",
+            "required": true
+          },
+          {
+            "name": "data",
+            "type": "buffer",
+            "label": "Data",
+            "required": true
+          },
+          {
+            "name": "convert",
+            "type": "boolean",
+            "label": "Convert a File",
+            "required": true
+          },
+          {
+            "name": "destination",
+            "type": "select",
+            "label": "New Drive Location",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "folderId",
+            "type": "folder",
+            "label": "New Folder Location",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "to": "{{2.fields.Email}}",
+        "content": "<div style=\"margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.7; color:#2E2E2E; max-width:640px;\">\r\n\r\n  <p>Hi {{2.fields.`First Name`}},</p>\r\n\r\n  <p>Thank you for sharing your story.</p>\r\n\r\n  <p>\r\n    Your personalised <strong>What Only You Can Bring™ </strong> document is attached as a PDF. It recognises what your story reveals, offering a thoughtful reflection on the patterns of contribution emerging through your lived experience.\r\n  </p>\r\n\r\n  <p>\r\n    This document is offered as a mirror of what your story reveals. The meaning, as always, belongs entirely to you.\r\n  </p>\r\n\r\n  <p>\r\n    If you're willing, I'd love to hear about your experience.\r\n    You'll find a feedback link at the end of your reflection.\r\n  </p>\r\n\r\n  <p>\r\n    Thank you for being part of this early pilot. Your experience is helping shape what comes next.\r\n  </p>\r\n\r\n  <p style=\"margin-bottom:4px;\">\r\n    Warmly,\r\n  </p>\r\n\r\n  <p style=\"margin-top:0; margin-bottom:12px;\">\r\n    <strong>Diane Hewat</strong><br>\r\n    Founder\r\n  </p>\r\n\r\n  <p style=\"margin:0 0 12px 0;\">\r\n    <img\r\n      src=\"https://raw.githubusercontent.com/dianehewat/woycb-assets/main/WOYCB_Logo_big.png\"\r\n      alt=\"What Only You Can Bring™\"\r\n      width=\"140\"\r\n      style=\"display:block; border:0; width:140px; height:auto;\"\r\n    >\r\n  </p>\r\n\r\n  <p style=\"margin-top:0; margin-bottom:4px;\">\r\n    <strong>What Only You Can Bring™</strong>\r\n  </p>\r\n\r\n  <p style=\"margin-top:0; color:#666666;\">\r\n    Enabling humanity to recognise what only people can bring\r\n  </p>\r\n\r\n</div>",
+        "subject": "{{2.fields.`First Name`}} {{2.fields.`Last Name`}} - Your What Only You Can Bring™ Reflection",
+        "bodyType": "rawHtml",
+        "attachments": [
+          {
+            "data": "{{21.data}}",
+            "filename": "{{21.name}}.pdf"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": -863,
+          "y": 376
+        },
+        "restore": {
+          "expect": {
+            "cc": {
+              "mode": "chose"
+            },
+            "to": {
+              "mode": "edit"
+            },
+            "bcc": {
+              "mode": "chose"
+            },
+            "from": {
+              "mode": "chose"
+            },
+            "bodyType": {
+              "label": "Raw HTML"
+            },
+            "attachments": {
+              "mode": "chose",
+              "items": [
+                null
+              ]
+            },
+            "emailHeaders": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google-email"
+              },
+              "label": "My Gmail connection (<GMAIL_ACCOUNT_REDACTED>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-email",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "to",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address",
+              "required": true,
+              "validate": true
+            },
+            "type": "array",
+            "label": "To",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "label": "Subject"
+          },
+          {
+            "name": "bodyType",
+            "type": "select",
+            "label": "Body type",
+            "required": true,
+            "validate": {
+              "enum": [
+                "rawHtml",
+                "collection"
+              ]
+            }
+          },
+          {
+            "name": "attachments",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "filename",
+                  "type": "filename",
+                  "label": "File name",
+                  "required": true,
+                  "semantic": "file:name"
+                },
+                {
+                  "name": "data",
+                  "type": "buffer",
+                  "label": "Data",
+                  "required": true,
+                  "semantic": "file:data"
+                }
+              ],
+              "type": "collection",
+              "label": "Attachment"
+            },
+            "type": "array",
+            "label": "Attachments"
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "From"
+          },
+          {
+            "name": "cc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "CC recipients"
+          },
+          {
+            "name": "bcc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "BCC recipients"
+          },
+          {
+            "name": "emailHeaders",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "key",
+                  "type": "text",
+                  "label": "Key",
+                  "required": true
+                },
+                {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Value"
+                }
+              ],
+              "type": "collection",
+              "label": "Email header"
+            },
+            "type": "array",
+            "label": "Additional email headers"
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "label": "Content"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu2.make.com",
+    "notes": []
+  }
+}
